@@ -1,6 +1,5 @@
 #include "main.h"
 #include "stack.h"
-#include <stdio.h>
 
 void initMap(void);
 void printMap(void);
@@ -12,6 +11,8 @@ void main(void)
     initMap();
     currentStack = sInit(10 * row * col);
     doneStack = sInit(10 * row * col);
+
+    
     printMap();
 }
 
