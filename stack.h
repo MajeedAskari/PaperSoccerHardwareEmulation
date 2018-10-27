@@ -1,6 +1,6 @@
 #ifndef STACK_H_
-
 #define STACK_H_
+
 #include "main.h"
 #include <stdlib.h>
 
@@ -11,5 +11,6 @@
 int sInit(int stackSize);
 void sPush(STACK_TYPE data, int stackID);
 STACK_TYPE sPop(int stackID);
+void sPrintStack(int stackID);
 
 #endif

@@ -1,4 +1,4 @@
-#ifndef MAIN_H_ /* Include guard */
+#ifndef MAIN_H_
 #define MAIN_H_
 
 #define row 13
