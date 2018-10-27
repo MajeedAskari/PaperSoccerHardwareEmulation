@@ -13,6 +13,11 @@ enum States
     moveTransfer
 };
 
+struct node
+{
+    char move;
+};
+
 enum States currentState, nextState;
 unsigned char map[row][col];
 int currentStack, doneStack;

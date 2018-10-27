@@ -3,8 +3,9 @@
 
 #include "main.h"
 #include <stdlib.h>
+#include <stdio.h>
 
-#define STACK_TYPE int
+#define STACK_TYPE struct node
 #define NUMBER_OF_STACKS 10
 #define MAX_NUMBER_OF_ELEMENTS 10 * row *col
 

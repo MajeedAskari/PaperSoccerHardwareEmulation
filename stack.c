@@ -29,6 +29,6 @@ void sPrintStack(int stackID)
 {
 	for (int i = 0; i < _stackSize[stackID]; i++)
 	{
-		printf("%d,", _stack[stackID][i]);
+		printf("%c,", _stack[stackID][i].move);
 	}
 }
