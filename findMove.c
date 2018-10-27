@@ -1,5 +1,7 @@
 #include <stdio.h>
-#include <stach.h>
+#include "stack.h"
+#include "main.h"
+
 char *findMove()
 {
 
