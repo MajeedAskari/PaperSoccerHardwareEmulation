@@ -6,4 +6,6 @@
 #include "stack.h"
 #include <stdio.h>
 
+void findMove(void); 
+
 #endif

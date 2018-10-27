@@ -1,49 +1,48 @@
-#include <stdio.h>
-#include "stack.h"
 #include "main.h"
+#include "stack.h"
 
-char *findMove()
+void findMove()
 {
+    STACK_TYPE newNode;
 
-    if (map[x][y - 1] != NULL && (map[x][y - 1] & 1 == 0))
+    if(map[ballX][ballY - 1] & 0x01 == 0)
     {
-        sPush(1, current);
+        newNode.move = 0x01;
+        sPush(newNode, currentStack);
     }
-    if (map[x + 1][y - 1] != NULL && (map[x + 1][y - 1] & 2 == 0))
+    if(map[ballX + 1][ballY - 1] & 0x02 == 0)
     {
-        sPush(2, current);
+        newNode.move = 0x02;
+        sPush(newNode, currentStack);
     }
-    if (map[x + 1][y] != NULL && (map[x + 1][y] & 4 == 0))
+    if(map[ballX + 1][ballY] & 0x04 == 0)
     {
-        sPush(4, current);
+        newNode.move = 0x04;
+        sPush(newNode, currentStack);
     }
-    if (map[x + 1][y + 1] != NULL && (map[x + 1][y + 1] & 8 == 0))
+    if(map[ballX + 1][ballY + 1] & 0x08 == 0)
     {
-        sPush(8, current);
+        newNode.move = 0x08;
+        sPush(newNode, currentStack);
     }
-    if (map[x][y + 1] != NULL && (map[x][y + 1] & 16 == 0))
+    if(map[ballX][ballY + 1] & 0x10 == 0)
     {
-        sPush(16, current);
+        newNode.move = 0x10;
+        sPush(newNode, currentStack);
     }
-    if (map[x - 1][y + 1] != NULL && (map[x - 1][y + 1] & 32 == 0))
+    if(map[ballX - 1][ballY + 1] & 0x20 == 0)
     {
-        sPush(32, current);
+        newNode.move = 0x20;
+        sPush(newNode, currentStack);
     }
-    if (map[x - 1][y] != NULL && (map[x - 1][y] & 64 == 0))
+    if(map[ballX - 1][ballY] & 0x40 == 0)
     {
-        sPush(64, current);
+        newNode.move = 0x40;
+        sPush(newNode, currentStack);
     }
-    if (map[x - 1][y - 1] != NULL && (map[x - 1][y - 1] & 128 == 0))
+    if(map[ballX - 1][ballY - 1] & 0x80 == 0)
     {
-        sPush(128, current);
+        newNode.move = 0x80;
+        sPush(newNode, currentStack);
     }
 }
-
-int main()
-{
-    printf("%d", 65 & 61);
-
-    return 0;
-}
-
-

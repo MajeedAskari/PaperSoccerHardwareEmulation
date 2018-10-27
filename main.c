@@ -1,10 +1,10 @@
 #include "main.h"
 #include "stack.h"
-#include <windows.h>
 
 void initMap(void);
 void printMap(void);
 void initTimer(void);
+VOID CALLBACK clockTimer(PVOID, BOOLEAN);
 
 void main(void)
 {
@@ -16,7 +16,7 @@ void main(void)
 
     initTimer();
 
-    //printMap();
+    printMap();
 }
 
 void initMap(void)
