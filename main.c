@@ -1,8 +1,10 @@
 #include "main.h"
 #include "stack.h"
+#include <windows.h>
 
 void initMap(void);
 void printMap(void);
+void initTimer(void);
 
 void main(void)
 {
@@ -12,8 +14,9 @@ void main(void)
     currentStack = sInit(10 * row * col);
     doneStack = sInit(10 * row * col);
 
-    
-    printMap();
+    initTimer();
+
+    //printMap();
 }
 
 void initMap(void)
@@ -72,4 +75,45 @@ void printMap(void)
             if (j == col - 1)
                 printf("\n");
         }
+}
+
+void initTimer(void)
+{
+    HANDLE hTimer = NULL;
+    HANDLE hTimerQueue = NULL;
+    int arg = 123;
+
+    // Use an event object to track the TimerRoutine execution
+    gDoneEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
+    if (NULL == gDoneEvent)
+    {
+        printf("CreateEvent failed (%d)\n", GetLastError());
+        return;
+    }
+
+    // Create the timer queue.
+    hTimerQueue = CreateTimerQueue();
+    if (NULL == hTimerQueue)
+    {
+        printf("CreateTimerQueue failed (%d)\n", GetLastError());
+        return;
+    }
+
+    // Set a timer to call the timer routine in 10 seconds.
+    if (!CreateTimerQueueTimer( &hTimer, hTimerQueue, 
+            (WAITORTIMERCALLBACK)clockTimer, &arg , clockPeriod, 1, 0))
+    {
+        printf("CreateTimerQueueTimer failed (%d)\n", GetLastError());
+        return;
+    }
+}
+
+VOID CALLBACK clockTimer(PVOID lpParam, BOOLEAN TimerOrWaitFired)
+{
+    if (lpParam != NULL && TimerOrWaitFired)
+    {
+        clock++;
+    }
+
+    SetEvent(gDoneEvent);
 }
