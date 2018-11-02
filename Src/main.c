@@ -1,6 +1,7 @@
 #include "../Inc/main.h"
 #include "../Inc/stack.h"
 #include "../Inc/move.h"
+#include "../Inc/evaluate.h"
 
 void initMap(void);
 void printMap(void);
@@ -20,6 +21,7 @@ void main(void)
 
     initTimer();
 
+
     /* For testing applyMove */
     // printMap();
 
@@ -28,6 +30,13 @@ void main(void)
     // applyMove(temp);
     
     // printMap();
+
+
+    /* For testing checkGoal */
+    upSide = true;
+    ballX = 0;
+    ballY = col / 2 + 1;
+    printf("%d", checkGoal());
 }
 
 void initMap(void)

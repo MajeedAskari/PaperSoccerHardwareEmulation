@@ -32,11 +32,13 @@ int evaluateState()
 
 int checkGoal()
 {
-    if (ballX == col / 2 || ballX == col / 2 + 1 || ballX == col / 2 - 1)
+    if (ballY == col / 2 || ballY == col / 2 + 1 || ballY == col / 2 - 1)
     {
-        if ((ballY == 0 && !upSide) || (ballY == row - 1 && upSide))
+        if ((ballX == 0 && !upSide) || (ballX == row - 1 && upSide))
             return GOAL_VALUE;
-        if ((ballY == 0 && upSide) || (ballY == row - 1 && !upSide))
+        if ((ballX == 0 && upSide) || (ballX == row - 1 && !upSide))
             return -GOAL_VALUE;
     }
+    
+    return 0;
 }
