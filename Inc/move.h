@@ -7,5 +7,6 @@
 #include <stdio.h>
 
 void findMove(void); 
+void applyMove(STACK_TYPE);
 
 #endif

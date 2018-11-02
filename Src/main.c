@@ -1,5 +1,6 @@
 #include "../Inc/main.h"
 #include "../Inc/stack.h"
+#include "../Inc/move.h"
 
 void initMap(void);
 void printMap(void);
@@ -9,12 +10,24 @@ VOID CALLBACK clockTimer(PVOID, BOOLEAN);
 void main(void)
 {
     printf("Starting the GAME!\n\n");
+    
+    ballX = row / 2;
+    ballY = col / 2;
 
     initMap();
     currentStack = sInit(10 * row * col);
     doneStack = sInit(10 * row * col);
 
     initTimer();
+
+    /* For testing applyMove */
+    // printMap();
+
+    // STACK_TYPE temp;
+    // temp.move = 0x80;
+    // applyMove(temp);
+    
+    // printMap();
 }
 
 void initMap(void)
@@ -30,16 +43,22 @@ void initMap(void)
     }
 
     for (int i = 1; i < row - 1; i++)
+    {
         map[i][0] = 0x0E; // 0000 1110
-
-    for (int i = 1; i < row - 1; i++)
         map[i][col - 1] = 0xE0; // 1110 0000
+    }    
 
     for (int j = 0; j < col; j++)
     {
         map[1][j] = 0x38;       // 0011 1000
         map[row - 2][j] = 0x83; // 1000 0011
     }
+
+    for(int j = 0; j < col; j++)
+        map[row / 2][j] = 0x44; // 0100 0100
+
+    map[row / 2][0] = 0x0A;
+    map[row / 2][col - 1] = 0xA0;
 
     map[1][0] = 0x08;             // 0000 1000
     map[1][col - 1] = 0x20;       // 0010 0000
@@ -73,6 +92,7 @@ void printMap(void)
             if (j == col - 1)
                 printf("\n");
         }
+    printf("\n\n");
 }
 
 void initTimer(void)

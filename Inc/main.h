@@ -28,7 +28,7 @@ enum States currentState, nextState;
 unsigned char map[row][col];
 int currentStack, doneStack;
 int ballX, ballY;
-//bool upSide = true;
+bool upSide;
 long long clock;
 HANDLE gDoneEvent;
 
