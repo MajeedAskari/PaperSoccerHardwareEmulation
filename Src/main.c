@@ -11,7 +11,7 @@ VOID CALLBACK clockTimer(PVOID, BOOLEAN);
 void main(void)
 {
     printf("Starting the GAME!\n\n");
-    
+
     ballX = row / 2;
     ballY = col / 2;
 
@@ -20,23 +20,27 @@ void main(void)
     doneStack = sInit(10 * row * col);
 
     initTimer();
-
-
+    
     /* For testing applyMove */
     // printMap();
 
     // STACK_TYPE temp;
     // temp.move = 0x80;
     // applyMove(temp);
-    
+
     // printMap();
 
-
     /* For testing checkGoal */
+    // upSide = true;
+    // ballX = 0;
+    // ballY = col / 2 + 1;
+    // printf("check goal: %d \n", checkGoal());
+
+    /* evaluate fucntion test */
     upSide = true;
-    ballX = 0;
-    ballY = col / 2 + 1;
-    printf("%d", checkGoal());
+    ballX = row / 2 ;
+    ballY = col / 2;
+    printf("evaluate: %d", evaluateState());
 }
 
 void initMap(void)
@@ -53,9 +57,9 @@ void initMap(void)
 
     for (int i = 1; i < row - 1; i++)
     {
-        map[i][0] = 0x0E; // 0000 1110
+        map[i][0] = 0x0E;       // 0000 1110
         map[i][col - 1] = 0xE0; // 1110 0000
-    }    
+    }
 
     for (int j = 0; j < col; j++)
     {
@@ -63,7 +67,7 @@ void initMap(void)
         map[row - 2][j] = 0x83; // 1000 0011
     }
 
-    for(int j = 0; j < col; j++)
+    for (int j = 0; j < col; j++)
         map[row / 2][j] = 0x44; // 0100 0100
 
     map[row / 2][0] = 0x0A;
@@ -127,8 +131,8 @@ void initTimer(void)
     }
 
     // Set a timer to call the timer routine in 10 seconds.
-    if (!CreateTimerQueueTimer( &hTimer, hTimerQueue, 
-            (WAITORTIMERCALLBACK)clockTimer, &arg , clockPeriod, 1, 0))
+    if (!CreateTimerQueueTimer(&hTimer, hTimerQueue,
+                               (WAITORTIMERCALLBACK)clockTimer, &arg, clockPeriod, 1, 0))
     {
         printf("CreateTimerQueueTimer failed (%d)\n", GetLastError());
         return;
