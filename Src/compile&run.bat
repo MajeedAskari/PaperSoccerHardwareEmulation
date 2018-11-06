@@ -1,2 +1,2 @@
-gcc ./move.c ./stack.c ./evaluate.c ./main.c -o main
+gcc ./ai.c ./move.c ./stack.c ./evaluate.c ./main.c -o main
 main.exe
