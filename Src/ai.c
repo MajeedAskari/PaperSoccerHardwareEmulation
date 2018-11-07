@@ -11,10 +11,10 @@
 int minimax(int depth, bool isMax)
 {
 
-    if (depth == h)
+    if (depth == MAX_DEPTH)
         return evaluateState();
 
-    STACK_TYPE par = sPop();
+    STACK_TYPE par = sPop(currentStack);
     applyMove(par);
     int children = findMove();
     par.children = children;
@@ -35,14 +35,14 @@ int minimax(int depth, bool isMax)
         {
             min = min(min, minimax(depth + 1, true));
         }
+        return min;
     }
-    return min;
 }
 
-int main()
-{
+// int main()
+// {
 
-    int res = minimax(0, true);
-    printf("The optimal value is : %d \n", res);
-    return 0;
-}
+//     int res = minimax(0, true);
+//     printf("The optimal value is : %d \n", res);
+//     return 0;
+// }

@@ -1,4 +1,13 @@
-// #include<stdio.h>
-#include "main.h"
+#ifndef AI_H_
+#define AI_H_
 
-int minimax(int depth, int nodeIndex, bool isMax);
+#define MAX_DEPTH 5
+
+#include "main.h"
+#include "stack.h"
+#include "move.h"
+#include "evaluate.h"
+
+int minimax(int depth, bool isMax);
+
+#endif

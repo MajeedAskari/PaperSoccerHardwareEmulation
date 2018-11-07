@@ -37,10 +37,12 @@ void main(void)
     // printf("check goal: %d \n", checkGoal());
 
     /* evaluate fucntion test */
-    upSide = true;
-    ballX = row / 2 ;
-    ballY = col / 2;
-    printf("evaluate: %d", evaluateState());
+    // upSide = true;
+    // ballX = row / 2 ;
+    // ballY = col / 2;
+    // printf("evaluate: %d", evaluateState());
+    
+    // minimax(0 ,true);
 }
 
 void initMap(void)
