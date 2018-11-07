@@ -7,5 +7,6 @@
 
 int findMove(void); 
 void applyMove(STACK_TYPE);
+void reverseMove(STACK_TYPE);
 
 #endif

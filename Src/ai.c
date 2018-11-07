@@ -8,16 +8,21 @@ int minimax(int depth, bool isMax)
     if (depth == MAX_DEPTH)
         return evaluateState();
 
-    STACK_TYPE par = sPop(currentStack);
-    applyMove(par);
     int children = findMove();
+
+
 
     if (isMax)
     {
         int max = -INFINITE;
         for (int i = 0; i < children; i++)
         {
+            STACK_TYPE par = sPop(currentStack);
+            applyMove(par);
+            sPush(par, doneStack);
             max = max(max, minimax(depth + 1, false));
+            STACK_TYPE lastMove = sPop(doneStack);
+            reverseMove(lastMove);
         }
         return max;
     }
@@ -26,7 +31,12 @@ int minimax(int depth, bool isMax)
         int min = INFINITE;
         for (int i = 0; i < children; i++)
         {
+            STACK_TYPE par = sPop(currentStack);
+            applyMove(par);
+            sPush(par, doneStack);
             min = min(min, minimax(depth + 1, true));
+            STACK_TYPE lastMove = sPop(doneStack);
+            reverseMove(lastMove);
         }
         return min;
     }
