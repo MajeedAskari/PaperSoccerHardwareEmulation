@@ -1,5 +1,3 @@
-#include "../Inc/main.h"
-#include "../Inc/stack.h"
 #include "../Inc/move.h"
 
 int findMove()
@@ -106,3 +104,52 @@ void applyMove(STACK_TYPE moveNode)
         map[ballX][ballY] |= 0x08;
     }
 }
+
+void reverseMove(STACK_TYPE moveNode)
+{
+    map[ballX][ballY] = map[ballX][ballY] | moveNode.move;
+
+    if (moveNode.move & 0x01)
+    {
+        ballX -= 1;
+        map[ballX][ballY] |= 0x10;
+    }
+    else if (moveNode.move & 0x02)
+    {
+        ballX -= 1;
+        ballY += 1;
+        map[ballX][ballY] |= 0x20;
+    }
+    else if (moveNode.move & 0x04)
+    {
+        ballY += 1;
+        map[ballX][ballY] |= 0x40;
+    }
+    else if (moveNode.move & 0x08)
+    {
+        ballX += 1;
+        ballY += 1;
+        map[ballX][ballY] |= 0x80;
+    }
+    else if (moveNode.move & 0x10)
+    {
+        ballX += 1;
+        map[ballX][ballY] |= 0x01;
+    }
+    else if (moveNode.move & 0x20)
+    {
+        ballX += 1;
+        ballY -= 1;
+        map[ballX][ballY] |= 0x02;
+    }
+    else if (moveNode.move & 0x40)
+    {
+        ballY -= 1;
+        map[ballX][ballY] |= 0x04;
+    }
+    else if (moveNode.move & 0x80)
+    {
+        ballX -= 1;
+        ballY -= 1;
+        map[ballX][ballY] |= 0x08;
+    }

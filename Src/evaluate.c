@@ -1,4 +1,3 @@
-#include "../Inc/main.h"
 #include "../Inc/evaluate.h"
 
 int evaluateState()

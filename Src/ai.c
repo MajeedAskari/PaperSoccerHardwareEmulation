@@ -1,13 +1,7 @@
 #include "../Inc/ai.h"
 
-// Returns the optimal value a maximizer can obtain.
-// depth is current depth in game tree.
-// nodeIndex is index of current node in scores[].
 // isMax is true if current move is
 // of maximizer, else false
-// scores[] stores leaves of Game tree.
-// h is maximum height of Game tree
-
 int minimax(int depth, bool isMax)
 {
 
@@ -17,7 +11,6 @@ int minimax(int depth, bool isMax)
     STACK_TYPE par = sPop(currentStack);
     applyMove(par);
     int children = findMove();
-    par.children = children;
 
     if (isMax)
     {

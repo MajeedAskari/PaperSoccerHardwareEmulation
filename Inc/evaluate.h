@@ -5,8 +5,8 @@
 #include "main.h"
 #define GOAL_VALUE 9999999
 
-#endif
-
 int evaluateState();
 
 int checkGoal();
+
+#endif

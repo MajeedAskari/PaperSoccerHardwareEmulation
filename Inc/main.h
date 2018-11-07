@@ -9,7 +9,6 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <windows.h>
-// #include "ai.h"
 
 enum States
 {
@@ -23,7 +22,6 @@ enum States
 struct node
 {
     char move;
-    int children;
 };
 
 enum States currentState, nextState;
@@ -35,5 +33,6 @@ long long clock;
 HANDLE gDoneEvent;
 
 void printMap(void);
+void test(void);
 
 #endif

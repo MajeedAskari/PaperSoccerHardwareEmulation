@@ -2,11 +2,14 @@
 #include "../Inc/stack.h"
 #include "../Inc/move.h"
 #include "../Inc/evaluate.h"
+#include "../Inc/ai.h"
 
 void initMap(void);
 void printMap(void);
 void initTimer(void);
+void test(void);
 VOID CALLBACK clockTimer(PVOID, BOOLEAN);
+
 
 void main(void)
 {
@@ -20,29 +23,10 @@ void main(void)
     doneStack = sInit(10 * row * col);
 
     initTimer();
-    
-    /* For testing applyMove */
-    // printMap();
 
-    // STACK_TYPE temp;
-    // temp.move = 0x80;
-    // applyMove(temp);
+    // test();
 
-    // printMap();
-
-    /* For testing checkGoal */
-    // upSide = true;
-    // ballX = 0;
-    // ballY = col / 2 + 1;
-    // printf("check goal: %d \n", checkGoal());
-
-    /* evaluate fucntion test */
-    // upSide = true;
-    // ballX = row / 2 ;
-    // ballY = col / 2;
-    // printf("evaluate: %d", evaluateState());
-    
-    // minimax(0 ,true);
+    minimax(0 ,true);
 }
 
 void initMap(void)
@@ -149,4 +133,28 @@ VOID CALLBACK clockTimer(PVOID lpParam, BOOLEAN TimerOrWaitFired)
     }
 
     SetEvent(gDoneEvent);
+}
+
+void test()
+{
+    /* For testing applyMove */
+    // printMap();
+
+    // STACK_TYPE temp;
+    // temp.move = 0x80;
+    // applyMove(temp);
+
+    // printMap();
+
+    /* For testing checkGoal */
+    // upSide = true;
+    // ballX = 0;
+    // ballY = col / 2 + 1;
+    // printf("check goal: %d \n", checkGoal());
+
+    /* To test evaluate() */
+    // upSide = true;
+    // ballX = row / 2 ;
+    // ballY = col / 2;
+    // printf("evaluate: %d", evaluateState());
 }
