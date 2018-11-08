@@ -24,7 +24,7 @@ void main(void)
 
     initTimer();
 
-    // test();
+    test();
 
     minimax(0 ,true);
 }
@@ -141,9 +141,13 @@ void test()
     // printMap();
 
     // STACK_TYPE temp;
-    // temp.move = 0x80;
+    // temp.move = 0x01;
     // applyMove(temp);
 
+    // printMap();
+
+    // reverseMove(temp);
+    
     // printMap();
 
     /* For testing checkGoal */

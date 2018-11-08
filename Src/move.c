@@ -107,5 +107,49 @@ void applyMove(STACK_TYPE moveNode)
 
 void reverseMove(STACK_TYPE moveNode)
 {
-    // TBD
+    if (moveNode.move & 0x01)
+    {
+        map[ballX][ballY] &= (0x10 ^ 0xFF);
+        ballX += 1;
+    }
+    else if (moveNode.move & 0x02)
+    {
+        map[ballX][ballY] &= (0x20 ^ 0xFF);
+        ballX += 1;
+        ballY -= 1;
+    }
+    else if (moveNode.move & 0x04)
+    {
+        map[ballX][ballY] &= (0x40 ^ 0xFF);
+        ballY -= 1;
+    }
+    else if (moveNode.move & 0x08)
+    {
+        map[ballX][ballY] &= (0x80 ^ 0xFF);
+        ballX -= 1;
+        ballY -= 1;
+    }
+    else if (moveNode.move & 0x10)
+    {
+        map[ballX][ballY] &= (0x01 ^ 0xFF);
+        ballX -= 1;
+    }
+    else if (moveNode.move & 0x20)
+    {
+        map[ballX][ballY] &= (0x02 ^ 0xFF);
+        ballX -= 1;
+        ballY += 1;
+    }
+    else if (moveNode.move & 0x40)
+    {
+        map[ballX][ballY] &= (0x04 ^ 0xFF);
+        ballY += 1;
+    }
+    else if (moveNode.move & 0x80)
+    {
+        map[ballX][ballY] &= (0x08 ^ 0xFF);
+        ballX += 1;
+        ballY += 1;
+    }
+    map[ballX][ballY] &= (moveNode.move ^ 0xFF);
 }
