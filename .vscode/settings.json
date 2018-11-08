@@ -5,5 +5,9 @@
         "limits": "c",
         "random": "c",
         "valarray": "c"
+    },
+    "code-runner.executorMap": {
+        "c": "cd $dir && \"compile&run.bat\""
     }
 }
+
