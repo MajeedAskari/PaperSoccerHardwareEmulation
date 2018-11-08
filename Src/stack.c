@@ -33,8 +33,8 @@ STACK_TYPE sPeek(int stackID)
 
 void sPrintStack(int stackID)
 {
-	for (int i = 0; i < _stackSize[stackID]; i++)
+	for (int i = 0; i < _headIndex[stackID]; i++)
 	{
-		printf("%c,", _stack[stackID][i].move);
+		printf("0x%02X,", _stack[stackID][i].move);
 	}
 }
