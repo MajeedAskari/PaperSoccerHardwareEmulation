@@ -25,6 +25,12 @@ STACK_TYPE sPop(int stackID)
 		return _stack[stackID][--_headIndex[stackID]];
 }
 
+STACK_TYPE sPeek(int stackID)
+{
+	if (_headIndex >= 0)
+		return _stack[stackID][_headIndex[stackID]];
+}
+
 void sPrintStack(int stackID)
 {
 	for (int i = 0; i < _stackSize[stackID]; i++)

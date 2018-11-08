@@ -12,6 +12,7 @@
 int sInit(int stackSize);
 void sPush(STACK_TYPE data, int stackID);
 STACK_TYPE sPop(int stackID);
+STACK_TYPE sPeek(int stackID);
 void sPrintStack(int stackID);
 
 #endif
