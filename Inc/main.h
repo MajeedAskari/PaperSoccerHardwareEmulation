@@ -22,6 +22,7 @@ enum States
 struct node
 {
     char move;
+    int value;
 };
 
 enum States currentState, nextState;
