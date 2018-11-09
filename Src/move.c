@@ -1,5 +1,7 @@
 #include "../Inc/move.h"
 
+// TODO: check borders.
+// TODO: check consecutive moves
 int findMove()
 {
     STACK_TYPE newNode;
