@@ -3,7 +3,7 @@
 #define EVALUATE_H
 
 #include "main.h"
-#define GOAL_VALUE 9999999
+#define GOAL_VALUE (1 << 29)
 
 int evaluateState();
 
