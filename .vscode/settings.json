@@ -4,7 +4,14 @@
         "chrono": "c",
         "limits": "c",
         "random": "c",
-        "valarray": "c"
+        "valarray": "c",
+        "queue": "c",
+        "stack": "c",
+        "ios": "c",
+        "iosfwd": "c",
+        "move.h": "c",
+        "stack.h": "c",
+        "stdio.h": "c"
     },
     "code-runner.executorMap": {
         "c": "cd $dir && \"compile&run.bat\""
