@@ -1,7 +1,7 @@
 #ifndef AI_H_
 #define AI_H_
 
-#define MAX_DEPTH 2
+#define MAX_DEPTH 5
 
 #include "main.h"
 #include "stack.h"

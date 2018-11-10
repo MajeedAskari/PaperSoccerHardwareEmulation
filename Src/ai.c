@@ -29,15 +29,26 @@ STACK_TYPE minimax_driver(int depth, bool isMax)
     {
         STACK_TYPE child = sPop(currentStack);
         // printf("child number %d is: 0x%02X\n", i, child.move);
+
+        // printf("i=%d before apply \n", i);
+        // printMap();
+        
         applyMove(child);
+        // printf("i=%d after apply 0x%02X\n", i, child.move);
+        // printMap();
+
         tmp = minimax(depth + 1, false);
         if (tmp.value > max.value)
         {
             max.move = child.move;
             max.value = tmp.value;
-            // printf("better move is: 0x%02X \n", max.move);
         }
+        // printf("i=%d after minimax \n", i);
+        // printMap();
+
         reverseMove(child);
+        // printf("i=%d after reverse \n", i);
+        // printMap();
     }
     return max;
 }
@@ -51,8 +62,6 @@ STACK_TYPE minimax(int depth, bool isMax)
     {
         STACK_TYPE tmp;
         tmp.value = evaluateState();
-        tmp.move = sPeek(doneStack).move;
-        // printf("debug move 0x%02X", tmp.move);
         return tmp;
     }
     int children = findMove();
@@ -64,9 +73,9 @@ STACK_TYPE minimax(int depth, bool isMax)
         {
             STACK_TYPE child = sPop(currentStack);
             applyMove(child);
-            // sPush(child, doneStack);
+            sPush(child, doneStack);
             max = mymax(max, minimax(depth + 1, false));
-            // STACK_TYPE lastMove = sPop(doneStack);
+            STACK_TYPE lastMove = sPop(doneStack);
             reverseMove(child);
         }
         return max;
@@ -74,14 +83,14 @@ STACK_TYPE minimax(int depth, bool isMax)
     else
     {
         STACK_TYPE min;
-        min.value = 1<<30;
+        min.value = 1 << 30;
         for (int i = 0; i < children; i++)
         {
             STACK_TYPE child = sPop(currentStack);
             applyMove(child);
-            // sPush(child, doneStack);
+            sPush(child, doneStack);
             min = mymin(min, minimax(depth + 1, true));
-            // STACK_TYPE lastMove = sPop(doneStack);
+            STACK_TYPE lastMove = sPop(doneStack);
             reverseMove(child);
         }
         return min;

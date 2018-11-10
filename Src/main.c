@@ -10,23 +10,39 @@ void initTimer(void);
 void test(void);
 VOID CALLBACK clockTimer(PVOID, BOOLEAN);
 
-
-void main(void)
+int main(void)
 {
     printf("Starting the GAME!\n\n");
 
     ballX = row / 2;
     ballY = col / 2;
+    upSide = true;
 
     initMap();
-    currentStack = sInit(10 * row * col);
-    doneStack = sInit(10 * row * col);
-
+    currentStack = sInit(1000 * row * col);
+    doneStack = sInit(1000 * row * col);
     initTimer();
 
-    test();
+    // test();
 
-    minimax(0 ,true);
+    int loop = 99;
+    while (loop--)
+    {
+        // printf("ballX is %d ballY is %d\n", ballX, ballY);
+        STACK_TYPE ans = minimax_driver(0, true);
+        printf("move is: 0x%02X\n", ans.move);
+        applyMove(ans);
+        printMap();
+
+        int oppMove = 'a';
+        STACK_TYPE oppTmp;
+        scanf("%d", &oppMove);
+        oppTmp.move = oppMove;
+        printf("oppMove is: 0x%02X\n", oppMove);
+        applyMove(oppTmp);
+        printMap();
+    }
+    return 0;
 }
 
 void initMap(void)
@@ -86,7 +102,10 @@ void printMap(void)
     for (int i = 0; i < row; i++)
         for (int j = 0; j < col; j++)
         {
-            printf("0x%02X  ", map[i][j]);
+            if (ballX == i && ballY == j)
+                printf("0Z%02X  ", map[i][j]);
+            else
+                printf("0x%02X  ", map[i][j]);
 
             if (j == col - 1)
                 printf("\n");
@@ -147,7 +166,7 @@ void test()
     // printMap();
 
     // reverseMove(temp);
-    
+
     // printMap();
 
     /* For testing checkGoal */
