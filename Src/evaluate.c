@@ -19,10 +19,10 @@ int evaluateState()
             eval += 99999;
     }
     eval += (ballX2 - (row / 2)) * 5;
-    // if (ballY <= col / 2)
-    //     eval += ballY * 5;
-    // else
-    //     eval += (col - ballY) * 5;
+    if (ballY <= col / 2)
+        eval += ballY * 5;
+    else
+        eval += (col - ballY - 1) * 5;
 
     return eval;
 }
