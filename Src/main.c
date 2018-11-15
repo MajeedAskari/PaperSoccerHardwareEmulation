@@ -60,42 +60,42 @@ void initMap(void)
 
     for (int i = 1; i < row - 1; i++)
     {
-        map[i][0] = 0x0E;       // 0000 1110
-        map[i][col - 1] = 0xE0; // 1110 0000
+        map[i][0] = 0xF1;
+        map[i][col - 1] = 0x1F;
     }
 
     for (int j = 0; j < col; j++)
     {
-        map[1][j] = 0x38;       // 0011 1000
-        map[row - 2][j] = 0x83; // 1000 0011
+        map[1][j] = 0xC7;
+        map[row - 2][j] = 0x7C;
     }
 
     for (int j = 0; j < col; j++)
-        map[row / 2][j] = 0x44; // 0100 0100
+        map[row / 2][j] = 0x44;
 
-    map[row / 2][0] = 0x0A;
-    map[row / 2][col - 1] = 0xA0;
+    map[row / 2][0] = 0xF5;
+    map[row / 2][col - 1] = 0x5F;
 
-    map[1][0] = 0x08;             // 0000 1000
-    map[1][col - 1] = 0x20;       // 0010 0000
-    map[row - 2][0] = 0x02;       // 0000 0010
-    map[row - 2][col - 1] = 0x80; // 1000 0000
+    map[1][0] = 0xF7;
+    map[1][col - 1] = 0xDF;
+    map[row - 2][0] = 0xFD;
+    map[row - 2][col - 1] = 0x7F;
 
-    map[0][(col / 2) - 1] = 0x08; // 0000 1000
-    map[0][(col / 2)] = 0x38;     // 0011 1000
-    map[0][(col / 2) + 1] = 0x20; // 0010 0000
+    map[0][(col / 2) - 1] = 0xF7;
+    map[0][(col / 2)] = 0xC7;
+    map[0][(col / 2) + 1] = 0xDF;
 
-    map[1][(col / 2) - 1] = 0x3E; // 0011 1110
-    map[1][(col / 2)] = 0x00;     // 0000 0000
-    map[1][(col / 2) + 1] = 0xF8; // 1111 1000
+    map[1][(col / 2) - 1] = 0xC1;
+    map[1][(col / 2)] = 0x00;
+    map[1][(col / 2) + 1] = 0x07;
 
-    map[row - 1][(col / 2) - 1] = 0x02; // 0000 0010
-    map[row - 1][(col / 2)] = 0x83;     // 1000 0011
-    map[row - 1][(col / 2) + 1] = 0x80; // 1000 0000
+    map[row - 1][(col / 2) - 1] = 0xFD;
+    map[row - 1][(col / 2)] = 0x7C;
+    map[row - 1][(col / 2) + 1] = 0x7F;
 
-    map[row - 2][(col / 2) - 1] = 0x8F; // 1000 1111
-    map[row - 2][(col / 2)] = 0x00;     // 0000 0000
-    map[row - 2][(col / 2) + 1] = 0xE3; // 1110 0011
+    map[row - 2][(col / 2) - 1] = 0x70;
+    map[row - 2][(col / 2)] = 0x00;
+    map[row - 2][(col / 2) + 1] = 0x1C;
 }
 
 void printMap(void)
