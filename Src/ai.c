@@ -32,7 +32,7 @@ STACK_TYPE minimax_driver(int depth, bool isMax)
 
         // printf("i=%d before apply \n", i);
         // printMap();
-        
+
         applyMove(child);
         // printf("i=%d after apply 0x%02X\n", i, child.move);
         // printMap();
@@ -74,7 +74,7 @@ STACK_TYPE minimax(int depth, bool isMax)
             STACK_TYPE child = sPop(currentStack);
             applyMove(child);
             sPush(child, doneStack);
-            max = mymax(max, minimax(depth + 1, false));
+            max = mymax(max, minimax(depth + 1, !child.finalMove));
             STACK_TYPE lastMove = sPop(doneStack);
             reverseMove(child);
         }
@@ -89,7 +89,7 @@ STACK_TYPE minimax(int depth, bool isMax)
             STACK_TYPE child = sPop(currentStack);
             applyMove(child);
             sPush(child, doneStack);
-            min = mymin(min, minimax(depth + 1, true));
+            min = mymin(min, minimax(depth + 1, child.finalMove));
             STACK_TYPE lastMove = sPop(doneStack);
             reverseMove(child);
         }
