@@ -24,7 +24,8 @@ int main(void)
     initTimer();
 
     // test();
-
+    // return 0;
+    
     int loop = 99;
     while (loop--)
     {
@@ -178,6 +179,6 @@ void test()
     /* To test evaluate() */
     // upSide = true;
     // ballX = row / 2 ;
-    // ballY = col / 2;
+    // ballY = col / 2 + 4;
     // printf("evaluate: %d", evaluateState());
 }
