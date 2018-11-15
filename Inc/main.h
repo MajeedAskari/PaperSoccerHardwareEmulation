@@ -23,7 +23,7 @@ struct node
 {
     int move;
     int value;
-    bool finalMove = true;
+    bool finalMove;
 };
 
 enum States currentState, nextState;

@@ -6,52 +6,61 @@ int findMove()
 {
     STACK_TYPE newNode;
     int children = 0;
+    newNode.finalMove = true;
 
     if ((map[ballX][ballY] & 0x10) == 0)
     {
         newNode.move = 0x01;
+        newNode.finalMove = ((map[ballX - 1][ballY] == 0x00)? true: false);
         sPush(newNode, currentStack);
         children++;
     }
     if ((map[ballX][ballY] & 0x02) == 0)
     {
         newNode.move = 0x02;
+        newNode.finalMove = ((map[ballX - 1][ballY + 1] == 0x00)? true: false);
         sPush(newNode, currentStack);
         children++;
     }
     if ((map[ballX][ballY] & 0x04) == 0)
     {
         newNode.move = 0x04;
+        newNode.finalMove = ((map[ballX][ballY + 1] == 0x00)? true: false);
         sPush(newNode, currentStack);
         children++;
     }
     if ((map[ballX][ballY] & 0x08) == 0)
     {
         newNode.move = 0x08;
+        newNode.finalMove = ((map[ballX + 1][ballY + 1] == 0x00)? true: false);
         sPush(newNode, currentStack);
         children++;
     }
     if ((map[ballX][ballY] & 0x01) == 0)
     {
         newNode.move = 0x10;
+        newNode.finalMove = ((map[ballX + 1][ballY] == 0x00)? true: false);
         sPush(newNode, currentStack);
         children++;
     }
     if ((map[ballX][ballY] & 0x20) == 0)
     {
         newNode.move = 0x20;
+        newNode.finalMove = ((map[ballX + 1][ballY - 1] == 0x00)? true: false);
         sPush(newNode, currentStack);
         children++;
     }
     if ((map[ballX][ballY] & 0x40) == 0)
     {
         newNode.move = 0x40;
+        newNode.finalMove = ((map[ballX][ballY - 1] == 0x00)? true: false);
         sPush(newNode, currentStack);
         children++;
     }
     if ((map[ballX][ballY] & 0x80) == 0)
     {
         newNode.move = 0x80;
+        newNode.finalMove = ((map[ballX - 1][ballY - 1] == 0x00)? true: false);
         sPush(newNode, currentStack);
         children++;
     }
