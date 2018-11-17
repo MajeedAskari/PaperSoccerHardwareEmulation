@@ -38,3 +38,17 @@ void sPrintStack(int stackID)
 		printf("0x%02X, ", _stack[stackID][i].move);
 	}
 }
+
+int sSize(int stackID)
+{
+	return _headIndex[stackID];
+}
+
+void sCopyStack(int source, int dest)
+{
+	_headIndex[dest] = 0;
+	for (int i = 0; i < _headIndex[source]; i++)
+	{
+		sPush(_stack[source][i], dest);
+	}
+}
