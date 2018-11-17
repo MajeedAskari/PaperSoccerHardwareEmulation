@@ -21,34 +21,44 @@ STACK_TYPE mymin(STACK_TYPE a, STACK_TYPE b)
 STACK_TYPE minimax_driver(int depth, bool isMax)
 {
 
-    int children = findMove();
-    STACK_TYPE max, tmp;
+    int children = findMove(currentStack);
+    STACK_TYPE max, tmp, curChild, curMove;
     max.value = -(1 << 30);
+    int dfsStack = sInit(1000);
+    int moveStack = sInit(1000);
+    int moveMax = sInit(1000);
 
     for (int i = 0; i < children; i++)
     {
+        // TODO: check if currentStack is the same before and after minimax
         STACK_TYPE child = sPop(currentStack);
-        // printf("child number %d is: 0x%02X\n", i, child.move);
-
-        // printf("i=%d before apply \n", i);
-        // printMap();
-
         applyMove(child);
-        // printf("i=%d after apply 0x%02X\n", i, child.move);
-        // printMap();
+        sPush(child, dfsStack);
 
-        tmp = minimax(depth + 1, false);
-        if (tmp.value > max.value)
+        do
         {
-            max.move = child.move;
-            max.value = tmp.value;
-        }
-        // printf("i=%d after minimax \n", i);
-        // printMap();
+            while (curChild.finalMove != true && sSize(dfsStack) != 0)
+            {
+                STACK_TYPE curMove = sPop(dfsStack);
+                sPush(curMove, moveStack);
+                applyMove(curMove);
+                findMove(dfsStack);
+            }
+            if (sSize(dfsStack) == 0)
+                continue;
+
+            tmp = minimax(depth + 1, false);
+            if (tmp.value > max.value)
+            {
+                max.value = tmp.value;
+                sCopyStack(moveStack, moveMax);
+            }
+            reverseMove(curMove);
+            sPop(moveStack);
+        } while (sSize(dfsStack) != 0);
+
 
         reverseMove(child);
-        // printf("i=%d after reverse \n", i);
-        // printMap();
     }
     return max;
 }
@@ -64,7 +74,7 @@ STACK_TYPE minimax(int depth, bool isMax)
         tmp.value = evaluateState();
         return tmp;
     }
-    int children = findMove();
+    int children = findMove(currentStack);
     if (isMax)
     {
         STACK_TYPE max;
