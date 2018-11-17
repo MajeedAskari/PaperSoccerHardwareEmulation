@@ -5,7 +5,7 @@
 #include "stack.h"
 #include <stdio.h>
 
-int findMove(void); 
+int findMove(int stackToPush); 
 void applyMove(STACK_TYPE);
 void reverseMove(STACK_TYPE);
 
