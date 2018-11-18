@@ -16,5 +16,7 @@ STACK_TYPE sPeek(int stackID);
 void sPrintStack(int stackID);
 int sSize(int stackID);
 void sCopyStack(int source, int dest);
+STACK_TYPE sGet(int stackID, int index);
+
 
 #endif

@@ -52,3 +52,9 @@ void sCopyStack(int source, int dest)
 		sPush(_stack[source][i], dest);
 	}
 }
+
+STACK_TYPE sGet(int stackID, int index)
+{
+	if (index < _headIndex[stackID])
+		return _stack[stackID][index];
+}
