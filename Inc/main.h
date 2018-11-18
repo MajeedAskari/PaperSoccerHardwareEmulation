@@ -3,7 +3,7 @@
 
 #define row 13
 #define col 9
-#define clockPeriod 1 // in ms
+#define clockPeriod 1   // in ms
 #define turnPeriod 1000 // in ms
 
 #include <stdio.h>
@@ -28,7 +28,7 @@ struct node
 
 enum States currentState, nextState;
 unsigned char map[row][col];
-int currentStack, doneStack;
+int currentStack, dfsStack, moveStack, moveMax;
 int ballX, ballY;
 bool upSide;
 long long clock;

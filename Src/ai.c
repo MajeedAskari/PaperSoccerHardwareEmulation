@@ -18,49 +18,54 @@ STACK_TYPE mymin(STACK_TYPE a, STACK_TYPE b)
     return b;
 }
 // TODO: think about infinite numbers and goal values
-STACK_TYPE minimax_driver(int depth, bool isMax)
+void minimax_driver(int depth, bool isMax)
 {
 
     int children = findMove(currentStack);
     STACK_TYPE max, tmp, curChild, curMove;
     max.value = -(1 << 30);
-    int dfsStack = sInit(1000);
-    int moveStack = sInit(1000);
-    int moveMax = sInit(1000);
 
     for (int i = 0; i < children; i++)
     {
         // TODO: check if currentStack is the same before and after minimax
         STACK_TYPE child = sPop(currentStack);
-        applyMove(child);
-        sPush(child, dfsStack);
-
-        do
+        //applyMove(child);
+        //  sPush(child, moveStack);
+        if (child.finalMove != true)
         {
-            while (curChild.finalMove != true && sSize(dfsStack) != 0)
+            sPush(child, dfsStack);
+            curMove = child;
+            do
             {
-                STACK_TYPE curMove = sPop(dfsStack);
-                sPush(curMove, moveStack);
-                applyMove(curMove);
-                findMove(dfsStack);
-            }
-            if (sSize(dfsStack) == 0)
-                continue;
+                while (sSize(dfsStack) != 0)
+                {
+                    curMove = sPop(dfsStack);
+                    sPush(curMove, moveStack);
+                    applyMove(curMove);
+                    if (curMove.finalMove == true)
+                        break;
+                    findMove(dfsStack);
+                }
+                if (sSize(dfsStack) == 0)
+                {
+                    // TODO ?
+                }
+                // TODO depth + d
+                tmp = minimax(depth + 1, false);
+                if (tmp.value > max.value)
+                {
+                    max.value = tmp.value;
+                    sCopyStack(moveStack, moveMax);
+                }
+                reverseMove(curMove);
+                sPop(moveStack);
+            } while (sSize(dfsStack) != 0);
+        }
 
-            tmp = minimax(depth + 1, false);
-            if (tmp.value > max.value)
-            {
-                max.value = tmp.value;
-                sCopyStack(moveStack, moveMax);
-            }
-            reverseMove(curMove);
-            sPop(moveStack);
-        } while (sSize(dfsStack) != 0);
-
-
+        sPop(moveStack);
+        // TODO: ensure that moveStack is empty here
         reverseMove(child);
     }
-    return max;
 }
 
 // isMax is true if current move is
