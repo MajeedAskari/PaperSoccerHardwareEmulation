@@ -58,3 +58,8 @@ STACK_TYPE sGet(int stackID, int index)
 	if (index < _headIndex[stackID])
 		return _stack[stackID][index];
 }
+
+void sClear(int stackID)
+{
+	_headIndex[stackID] = 0;
+}

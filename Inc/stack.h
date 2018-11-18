@@ -9,14 +9,16 @@
 #define NUMBER_OF_STACKS 10
 #define MAX_NUMBER_OF_ELEMENTS 10 * row *col
 
-int sInit(int stackSize);
+void sCopyStack(int source, int dest);
+void sClear(int stackID);
+void sPrintStack(int stackID);
 void sPush(STACK_TYPE data, int stackID);
+
+int sSize(int stackID);
+int sInit(int stackSize);
+
 STACK_TYPE sPop(int stackID);
 STACK_TYPE sPeek(int stackID);
-void sPrintStack(int stackID);
-int sSize(int stackID);
-void sCopyStack(int source, int dest);
 STACK_TYPE sGet(int stackID, int index);
-
 
 #endif
