@@ -88,9 +88,7 @@ STACK_TYPE minimax(int depth, bool isMax)
         {
             STACK_TYPE child = sPop(currentStack);
             applyMove(child);
-            sPush(child, doneStack);
             max = mymax(max, minimax(depth + 1, !child.finalMove));
-            STACK_TYPE lastMove = sPop(doneStack);
             reverseMove(child);
         }
         return max;
@@ -103,19 +101,9 @@ STACK_TYPE minimax(int depth, bool isMax)
         {
             STACK_TYPE child = sPop(currentStack);
             applyMove(child);
-            sPush(child, doneStack);
             min = mymin(min, minimax(depth + 1, child.finalMove));
-            STACK_TYPE lastMove = sPop(doneStack);
             reverseMove(child);
         }
         return min;
     }
 }
-
-// int main()
-// {
-
-//     int res = minimax(0, true);
-//     printf("The optimal value is : %d \n", res);
-//     return 0;
-// }
