@@ -12,6 +12,6 @@ void minimax_driver(int depth, bool isMax);
 
 STACK_TYPE mymax(STACK_TYPE a, STACK_TYPE b);
 STACK_TYPE mymin(STACK_TYPE a, STACK_TYPE b);
-STACK_TYPE minimax(int depth, bool isMax);
+STACK_TYPE minimax(int depth, bool isMax, bool isFinal);
 
 #endif

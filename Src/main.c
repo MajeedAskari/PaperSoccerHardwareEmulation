@@ -20,20 +20,27 @@ int main(void)
 
     initMap();
     currentStack = sInit(1000 * row * col);
-    doneStack = sInit(1000 * row * col);
+    dfsStack = sInit(1000);
+    moveStack = sInit(1000);
+    moveMax = sInit(1000);
     initTimer();
 
-    // test();
+    test();
     // return 0;
-    
+
     int loop = 99;
     while (loop--)
     {
         // printf("ballX is %d ballY is %d\n", ballX, ballY);
-        STACK_TYPE ans = minimax_driver(0, true);
-        printf("move is: 0x%02X\n", ans.move);
-        applyMove(ans);
-        printMap();
+        minimax_driver(0, true);
+        printf("out %d\n", sSize(moveMax));
+        for (int i = 0; i < sSize(moveMax); i++)
+        {
+            printf("move is: 0x%02X\n", sGet(moveMax, i).move);
+            applyMove(sGet(moveMax, i));
+            printMap();
+        }
+        sClear(moveMax);
 
         int oppMove = 'a';
         STACK_TYPE oppTmp;
@@ -164,7 +171,7 @@ void test()
     // temp.move = 0x01;
     // applyMove(temp);
 
-    // printMap();
+    printMap();
 
     // reverseMove(temp);
 
