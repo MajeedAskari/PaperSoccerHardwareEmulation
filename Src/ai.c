@@ -29,7 +29,7 @@ void minimax_driver(int depth, bool isMax)
     {
         // TODO: check if currentStack is the same before and after minimax
         STACK_TYPE child = sPop(currentStack);
-
+        printf("%d child is 0x%02X and itsfinal?%d\n", i, child.move, child.finalMove);
         if (child.finalMove != true)
         {
             sPush(child, dfsStack);
@@ -51,16 +51,17 @@ void minimax_driver(int depth, bool isMax)
                     break;
                 }
                 tmp = minimax(depth + 1, false, true);
+
                 if (tmp.value > max.value)
                 {
                     max.value = tmp.value;
                     sCopyStack(moveStack, moveMax);
-                    printf("line 59 %d    %d\n", sSize(moveStack), sSize(moveMax));
+                    // printf("line 59 %d    %d\n", sSize(moveStack), sSize(moveMax));
                 }
                 d++;
                 reverseMove(curMove);
                 sPop(moveStack);
-                printf("line 64\n");
+                // printf("line 64\n");
             } while (sSize(dfsStack) != 0 && d < MAX_DEPTH);
         }
         else
@@ -69,11 +70,11 @@ void minimax_driver(int depth, bool isMax)
             applyMove(child);
             sPush(child, moveStack);
             tmp = minimax(depth + 1, false, true);
+
             if (tmp.value > max.value)
             {
                 max.value = tmp.value;
                 sCopyStack(moveStack, moveMax);
-                printf("line 75 %d    %d\n", sSize(moveStack), sSize(moveMax));
             }
             // reverseMove(child);
             // sPop(moveStack);

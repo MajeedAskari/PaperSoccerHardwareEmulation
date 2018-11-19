@@ -32,11 +32,15 @@ int main(void)
     while (loop--)
     {
         // printf("ballX is %d ballY is %d\n", ballX, ballY);
+        printf("print map before minimax\n");
+        printMap();
         minimax_driver(0, true);
+        printf("print map after minimax\n");
+        printMap();
         printf("out %d\n", sSize(moveMax));
         for (int i = 0; i < sSize(moveMax); i++)
         {
-            printf("move is: 0x%02X\n", sGet(moveMax, i).move);
+            printf("move %d is: 0x%02X\n", i, sGet(moveMax, i).move);
             applyMove(sGet(moveMax, i));
             printMap();
         }
@@ -107,6 +111,7 @@ void initMap(void)
 
 void printMap(void)
 {
+    printf("ballx is %d, bally is %d \n", ballX, ballY);
     for (int i = 0; i < row; i++)
         for (int j = 0; j < col; j++)
         {
