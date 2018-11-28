@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <windows.h>
+#include <stdio.h>
 
 enum States
 {
@@ -24,11 +25,13 @@ struct node
     int move;
     int value;
     bool finalMove;
+	int parChildcount;
+	int parentMove;
 };
 
 enum States currentState, nextState;
 unsigned char map[row][col];
-int currentStack, dfsStack, moveStack, moveMax;
+int currentStack2, currentStack, dfsStack, moveStack, moveMax, childCountHolder;
 int ballX, ballY;
 bool upSide;
 long long clock;

@@ -4,6 +4,7 @@
 #include "main.h"
 #include "stack.h"
 #include <stdio.h>
+#include <stdio.h>
 
 int findMove(int stackToPush); 
 void applyMove(STACK_TYPE);

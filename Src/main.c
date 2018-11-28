@@ -20,9 +20,11 @@ int main(void)
 
     initMap();
     currentStack = sInit(1000 * row * col);
+	currentStack2 = sInit(1000);
     dfsStack = sInit(1000);
     moveStack = sInit(1000);
     moveMax = sInit(1000);
+	childCountHolder = sInit(1000);
     initTimer();
 
     test();
@@ -32,11 +34,11 @@ int main(void)
     while (loop--)
     {
         // printf("ballX is %d ballY is %d\n", ballX, ballY);
-        printf("print map before minimax\n");
-        printMap();
+        //printf("print map before minimax\n");
+        //printMap();
         minimax_driver(0, true);
-        printf("print map after minimax\n");
-        printMap();
+        //printf("print map after minimax\n");
+        //printMap();
         printf("out %d\n", sSize(moveMax));
         for (int i = 0; i < sSize(moveMax); i++)
         {
@@ -111,14 +113,32 @@ void initMap(void)
 
 void printMap(void)
 {
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+	WORD saved_attributes;
+	GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
+	saved_attributes = consoleInfo.wAttributes;
     printf("ballx is %d, bally is %d \n", ballX, ballY);
     for (int i = 0; i < row; i++)
         for (int j = 0; j < col; j++)
         {
-            if (ballX == i && ballY == j)
-                printf("0Z%02X  ", map[i][j]);
-            else
-                printf("0x%02X  ", map[i][j]);
+			if (ballX == i && ballY == j) {
+				SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN);
+				printf("0Z%02X  ", map[i][j]);
+				SetConsoleTextAttribute(hConsole, saved_attributes);
+			}
+			else if (i == row - 1 || j == col - 1|| i == 0 || j == 0) {
+				SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+				printf("0x%02X  ", map[i][j]);
+				SetConsoleTextAttribute(hConsole, saved_attributes);
+			}
+			else if (i == row / 2) {
+				SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+				printf("0x%02X  ", map[i][j]);
+				SetConsoleTextAttribute(hConsole, saved_attributes);
+			}
+			else
+				printf("0x%02X  ", map[i][j]);
 
             if (j == col - 1)
                 printf("\n");

@@ -1,3 +1,4 @@
+#include "../stdafx.h"
 
 //====================================================================================================//
 // Serial Port Programming using Win32 API in C                                                       //
@@ -49,7 +50,7 @@
 //			char   ComPortName[] = "\\\\.\\COM32";                                                    //
 //====================================================================================================//
 
-#include "serial.h"
+#include "../Inc/serial.h"
 
 BOOL Status;       // Status of the various operations
 HANDLE hComm;      // Handle to the Serial port

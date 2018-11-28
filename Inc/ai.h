@@ -1,12 +1,14 @@
 #ifndef AI_H_
 #define AI_H_
 
-#define MAX_DEPTH 7
+#define MAX_DEPTH 6
 
 #include "main.h"
 #include "stack.h"
 #include "move.h"
 #include "evaluate.h"
+#include <stdio.h>
+int dontPrint;
 
 void minimax_driver(int depth, bool isMax);
 

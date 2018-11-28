@@ -2,6 +2,8 @@
 #define SERIAL_H_
 #include <Windows.h>
 #include <stdio.h>
+#include "../stdafx.h"
+
 void serialOpen(char ComPortName[]);
 void serialRead(char SerialBuffer[]);
 void serialWrite(char lpBuffer[4]);
