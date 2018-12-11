@@ -3,13 +3,13 @@
 
 #define row 13
 #define col 9
-#define clockPeriod 1 // in ms
+#define clockPeriod 1   // in ms
 #define turnPeriod 1000 // in ms
 
 #include <stdio.h>
 #include <stdbool.h>
 #include <windows.h>
-// #include "ai.h"
+#include <stdio.h>
 
 enum States
 {
@@ -22,18 +22,22 @@ enum States
 
 struct node
 {
-    char move;
-    int children;
+    int move;
+    int value;
+    bool finalMove;
+	int parChildcount;
+	int parentMove;
 };
 
 enum States currentState, nextState;
 unsigned char map[row][col];
-int currentStack, doneStack;
+int currentStack2, currentStack, dfsStack, moveStack, moveMax, childCountHolder;
 int ballX, ballY;
 bool upSide;
 long long clock;
 HANDLE gDoneEvent;
 
 void printMap(void);
+void test(void);
 
 #endif

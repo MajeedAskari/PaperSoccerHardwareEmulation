@@ -2,47 +2,61 @@
 #include "../Inc/stack.h"
 #include "../Inc/move.h"
 #include "../Inc/evaluate.h"
+#include "../Inc/ai.h"
 
 void initMap(void);
 void printMap(void);
 void initTimer(void);
+void test(void);
 VOID CALLBACK clockTimer(PVOID, BOOLEAN);
 
-void main(void)
+int main(void)
 {
     printf("Starting the GAME!\n\n");
 
     ballX = row / 2;
     ballY = col / 2;
+    upSide = true;
 
     initMap();
-    currentStack = sInit(10 * row * col);
-    doneStack = sInit(10 * row * col);
-
+    currentStack = sInit(1000 * row * col);
+	currentStack2 = sInit(1000);
+    dfsStack = sInit(1000);
+    moveStack = sInit(1000);
+    moveMax = sInit(1000);
+	childCountHolder = sInit(1000);
     initTimer();
-    
-    /* For testing applyMove */
-    // printMap();
 
-    // STACK_TYPE temp;
-    // temp.move = 0x80;
-    // applyMove(temp);
+    test();
+    // return 0;
 
-    // printMap();
+    int loop = 99;
+    while (loop--)
+    {
+        // printf("ballX is %d ballY is %d\n", ballX, ballY);
+        //printf("print map before minimax\n");
+        //printMap();
+        minimax_driver(0, true);
+        //printf("print map after minimax\n");
+        //printMap();
+        printf("out %d\n", sSize(moveMax));
+        for (int i = 0; i < sSize(moveMax); i++)
+        {
+            printf("move %d is: 0x%02X\n", i, sGet(moveMax, i).move);
+            applyMove(sGet(moveMax, i));
+            printMap();
+        }
+        sClear(moveMax);
 
-    /* For testing checkGoal */
-    // upSide = true;
-    // ballX = 0;
-    // ballY = col / 2 + 1;
-    // printf("check goal: %d \n", checkGoal());
-
-    /* evaluate fucntion test */
-    // upSide = true;
-    // ballX = row / 2 ;
-    // ballY = col / 2;
-    // printf("evaluate: %d", evaluateState());
-    
-    // minimax(0 ,true);
+        int oppMove = 'a';
+        STACK_TYPE oppTmp;
+        scanf("%d", &oppMove);
+        oppTmp.move = oppMove;
+        printf("oppMove is: 0x%02X\n", oppMove);
+        applyMove(oppTmp);
+        printMap();
+    }
+    return 0;
 }
 
 void initMap(void)
@@ -59,50 +73,72 @@ void initMap(void)
 
     for (int i = 1; i < row - 1; i++)
     {
-        map[i][0] = 0x0E;       // 0000 1110
-        map[i][col - 1] = 0xE0; // 1110 0000
+        map[i][0] = 0xF1;
+        map[i][col - 1] = 0x1F;
     }
 
     for (int j = 0; j < col; j++)
     {
-        map[1][j] = 0x38;       // 0011 1000
-        map[row - 2][j] = 0x83; // 1000 0011
+        map[1][j] = 0xC7;
+        map[row - 2][j] = 0x7C;
     }
 
     for (int j = 0; j < col; j++)
-        map[row / 2][j] = 0x44; // 0100 0100
+        map[row / 2][j] = 0x44;
 
-    map[row / 2][0] = 0x0A;
-    map[row / 2][col - 1] = 0xA0;
+    map[row / 2][0] = 0xF5;
+    map[row / 2][col - 1] = 0x5F;
 
-    map[1][0] = 0x08;             // 0000 1000
-    map[1][col - 1] = 0x20;       // 0010 0000
-    map[row - 2][0] = 0x02;       // 0000 0010
-    map[row - 2][col - 1] = 0x80; // 1000 0000
+    map[1][0] = 0xF7;
+    map[1][col - 1] = 0xDF;
+    map[row - 2][0] = 0xFD;
+    map[row - 2][col - 1] = 0x7F;
 
-    map[0][(col / 2) - 1] = 0x08; // 0000 1000
-    map[0][(col / 2)] = 0x38;     // 0011 1000
-    map[0][(col / 2) + 1] = 0x20; // 0010 0000
+    map[0][(col / 2) - 1] = 0xF7;
+    map[0][(col / 2)] = 0xC7;
+    map[0][(col / 2) + 1] = 0xDF;
 
-    map[1][(col / 2) - 1] = 0x3E; // 0011 1110
-    map[1][(col / 2)] = 0x00;     // 0000 0000
-    map[1][(col / 2) + 1] = 0xF8; // 1111 1000
+    map[1][(col / 2) - 1] = 0xC1;
+    map[1][(col / 2)] = 0x00;
+    map[1][(col / 2) + 1] = 0x07;
 
-    map[row - 1][(col / 2) - 1] = 0x02; // 0000 0010
-    map[row - 1][(col / 2)] = 0x83;     // 1000 0011
-    map[row - 1][(col / 2) + 1] = 0x80; // 1000 0000
+    map[row - 1][(col / 2) - 1] = 0xFD;
+    map[row - 1][(col / 2)] = 0x7C;
+    map[row - 1][(col / 2) + 1] = 0x7F;
 
-    map[row - 2][(col / 2) - 1] = 0x8F; // 1000 1111
-    map[row - 2][(col / 2)] = 0x00;     // 0000 0000
-    map[row - 2][(col / 2) + 1] = 0xE3; // 1110 0011
+    map[row - 2][(col / 2) - 1] = 0x70;
+    map[row - 2][(col / 2)] = 0x00;
+    map[row - 2][(col / 2) + 1] = 0x1C;
 }
 
 void printMap(void)
 {
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+	WORD saved_attributes;
+	GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
+	saved_attributes = consoleInfo.wAttributes;
+    printf("ballx is %d, bally is %d \n", ballX, ballY);
     for (int i = 0; i < row; i++)
         for (int j = 0; j < col; j++)
         {
-            printf("0x%02X  ", map[i][j]);
+			if (ballX == i && ballY == j) {
+				SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN);
+				printf("0Z%02X  ", map[i][j]);
+				SetConsoleTextAttribute(hConsole, saved_attributes);
+			}
+			else if (i == row - 1 || j == col - 1|| i == 0 || j == 0) {
+				SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+				printf("0x%02X  ", map[i][j]);
+				SetConsoleTextAttribute(hConsole, saved_attributes);
+			}
+			else if (i == row / 2) {
+				SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+				printf("0x%02X  ", map[i][j]);
+				SetConsoleTextAttribute(hConsole, saved_attributes);
+			}
+			else
+				printf("0x%02X  ", map[i][j]);
 
             if (j == col - 1)
                 printf("\n");
@@ -149,4 +185,32 @@ VOID CALLBACK clockTimer(PVOID lpParam, BOOLEAN TimerOrWaitFired)
     }
 
     SetEvent(gDoneEvent);
+}
+
+void test()
+{
+    /* For testing applyMove */
+    // printMap();
+
+    // STACK_TYPE temp;
+    // temp.move = 0x01;
+    // applyMove(temp);
+
+    printMap();
+
+    // reverseMove(temp);
+
+    // printMap();
+
+    /* For testing checkGoal */
+    // upSide = true;
+    // ballX = 0;
+    // ballY = col / 2 + 1;
+    // printf("check goal: %d \n", checkGoal());
+
+    /* To test evaluate() */
+    // upSide = true;
+    // ballX = row / 2 ;
+    // ballY = col / 2 + 4;
+    // printf("evaluate: %d", evaluateState());
 }

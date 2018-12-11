@@ -25,10 +25,41 @@ STACK_TYPE sPop(int stackID)
 		return _stack[stackID][--_headIndex[stackID]];
 }
 
+STACK_TYPE sPeek(int stackID)
+{
+	if (_headIndex >= 0)
+		return _stack[stackID][_headIndex[stackID]];
+}
+
 void sPrintStack(int stackID)
 {
-	for (int i = 0; i < _stackSize[stackID]; i++)
+	for (int i = 0; i < _headIndex[stackID]; i++)
 	{
-		printf("%c,", _stack[stackID][i].move);
+		printf("0x%02X, ", _stack[stackID][i].move);
 	}
+}
+
+int sSize(int stackID)
+{
+	return _headIndex[stackID];
+}
+
+void sCopyStack(int source, int dest)
+{
+	_headIndex[dest] = 0;
+	for (int i = 0; i < _headIndex[source]; i++)
+	{
+		sPush(_stack[source][i], dest);
+	}
+}
+
+STACK_TYPE sGet(int stackID, int index)
+{
+	if (index < _headIndex[stackID])
+		return _stack[stackID][index];
+}
+
+void sClear(int stackID)
+{
+	_headIndex[stackID] = 0;
 }
